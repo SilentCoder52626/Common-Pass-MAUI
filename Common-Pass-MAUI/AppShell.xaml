@@ -4,12 +4,33 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Common_Pass_MAUI"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:icons="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:pages="clr-namespace:Common_Pass_MAUI.Pages"
     Shell.FlyoutBehavior="Disabled"
-    Title="Common_Pass_MAUI">
+    Title="Common Pass">
+    <Shell.Behaviors>
+        <toolkit:StatusBarBehavior StatusBarColor="{StaticResource Primary}" StatusBarStyle="LightContent"/>
+    </Shell.Behaviors>
+    <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:OnBoardingPage}" Route="OnBoardingPage" Shell.NavBarIsVisible="False" Shell.TabBarIsVisible="False"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:LoginRegisterPage}" Route="LoginRegisterPage" Shell.NavBarIsVisible="False" Shell.TabBarIsVisible="False"/>
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <Tab Title="Home">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialRegular" Glyph="{x:Static icons:MaterialRegular.Home}"/>
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate pages:HomePage}" Route="HomePage" />
+        </Tab>
+        <Tab Title="Profile">
+            <Tab.Icon>
+                <FontImageSource FontFamily="MaterialRegular" Glyph="{x:Static icons:MaterialTwoTone.Supervised_user_circle}"/>
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate pages:ProfilePage}" Route="ProfilePage" />
+        </Tab>
+        
+    </TabBar>
 
 </Shell>

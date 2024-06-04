@@ -58,6 +58,7 @@
 
 	<ItemGroup>
 	  <None Remove="appsettings.json" />
+	  <None Remove="Resources\Images\key.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -65,6 +66,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
@@ -75,6 +77,30 @@
 		<PackageReference Include="UraniumUI" Version="2.8.1" />
 		<PackageReference Include="UraniumUI.Icons.MaterialIcons" Version="2.8.1" />
 		<PackageReference Include="UraniumUI.Material" Version="2.8.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Pages\LoginRegisterPage.xaml.cs">
+	    <DependentUpon>LoginRegisterPage.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Pages\ProfilePage.xaml.cs">
+	    <DependentUpon>ProfilePage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Pages\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\LoginRegisterPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\OnBoardingPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Pages\ProfilePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>

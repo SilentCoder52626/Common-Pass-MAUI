@@ -1,24 +1,55 @@
-﻿namespace Common_Pass_MAUI
+﻿using Common_Pass_MAUI.Pages;
+
+namespace Common_Pass_MAUI
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
 
         public MainPage()
         {
             InitializeComponent();
         }
-
-        private void OnCounterClicked(object sender, EventArgs e)
+        protected override async void OnAppearing()
         {
-            count++;
+            base.OnAppearing();
 
-            if (count == 1)
-                CounterBtn.Text = $"Clicked {count} time";
+            if (DeviceInfo.Platform == DevicePlatform.WinUI)
+            {
+                //check if OnBoarding Shown
+                if (Preferences.Default.ContainsKey(UIConstants.OnBoardingShown))
+                {
+                    AppShell.Current.Dispatcher.Dispatch(async () =>
+                    {
+                        //ToDo : check for authenticated or not to send to homepage or login page
+                        await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+                    });
+                }
+                else
+                {
+                    AppShell.Current.Dispatcher.Dispatch(async () =>
+                    {
+                        await Shell.Current.GoToAsync($"//{nameof(OnBoardingPage)}");
+
+                    });
+
+                }
+            }
             else
-                CounterBtn.Text = $"Clicked {count} times";
+            {
+                //check if OnBoarding Shown
+                if (Preferences.Default.ContainsKey(UIConstants.OnBoardingShown))
+                {
+                    //ToDo : check for authenticated or not to send to homepage or login page
+                    await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+                }
+                else
+                {
+                    await Shell.Current.GoToAsync($"//{nameof(OnBoardingPage)}");
 
-            SemanticScreenReader.Announce(CounterBtn.Text);
+                }
+            }
+
+            
         }
     }
 

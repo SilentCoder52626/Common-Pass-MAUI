@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 using UraniumUI;
@@ -20,6 +21,7 @@ namespace Common_Pass_MAUI
 
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .UseUraniumUI()
                 .UseUraniumUIMaterial()
                 .ConfigureFonts(fonts =>
@@ -35,7 +37,7 @@ namespace Common_Pass_MAUI
                 config.BaseAddress = new Uri(url);
             });
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();
