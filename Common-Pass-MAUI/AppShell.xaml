@@ -13,7 +13,7 @@
     <Shell.Behaviors>
         <toolkit:StatusBarBehavior StatusBarColor="{StaticResource Primary}" StatusBarStyle="LightContent"/>
     </Shell.Behaviors>
-    <ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage"/>
+    <!--<ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage"/>-->
     <ShellContent ContentTemplate="{DataTemplate pages:OnBoardingPage}" Route="OnBoardingPage" Shell.NavBarIsVisible="False" Shell.TabBarIsVisible="False"/>
     <ShellContent ContentTemplate="{DataTemplate pages:LoginRegisterPage}" Route="LoginRegisterPage" Shell.NavBarIsVisible="False" Shell.TabBarIsVisible="False"/>
 

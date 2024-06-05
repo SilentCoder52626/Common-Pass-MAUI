@@ -8,6 +8,7 @@ namespace Common_Pass_MAUI
 {
     public static class UIConstants
     {
+        public const string UserTokenKey = "User-Token";
         public const string OnBoardingShown = "OnBoardingShown";
     }
 }

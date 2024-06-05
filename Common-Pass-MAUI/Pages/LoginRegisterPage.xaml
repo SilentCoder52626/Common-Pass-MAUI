@@ -1,12 +1,78 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:icons="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+             xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
+             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
              x:Class="Common_Pass_MAUI.Pages.LoginRegisterPage"
-             Title="LoginPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             BackgroundColor="{StaticResource BgColor}">
+
+    <Grid RowDefinitions="2*,3*">
+        <Border Grid.Row="0"
+        StrokeShape="RoundRectangle 120"
+        HeightRequest="240"
+        WidthRequest="240"
+        StrokeThickness="10"
+        Stroke="{StaticResource Primary}">
+            <Image Source="key.png"
+           HorizontalOptions="Center"
+           VerticalOptions="Center"
+           Aspect="AspectFill"
+           HeightRequest="200"
+           WidthRequest="200"/>
+            <Border.Shadow>
+                <Shadow Brush="{StaticResource Primary}"/>
+            </Border.Shadow>
+
+        </Border>
+
+        <ScrollView Grid.Row="1"
+                    Padding="10">
+            <VerticalStackLayout Spacing="30">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Grid.Column="0" Text="Login" FontSize="40" FontAttributes="Bold" LineHeight="1.2"/>
+                    <Label Grid.Column="1" Text="Switch to Register" FontSize="12" HorizontalOptions="End" Padding="5" TextDecorations="Underline" BackgroundColor="White" VerticalOptions="Center" FontAttributes="Bold"/>
+                </Grid>
+                <VerticalStackLayout Spacing="20">
+
+
+                    <material:TextField Title="Email" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static icons:MaterialRegular.Email}}" AllowClear="True" >
+                        <validation:RequiredValidation />
+                        <validation:RegexValidation Pattern="{x:Static input:AdvancedEntry.REGEX_EMAIL}" Message="Invalid email address" />
+                    </material:TextField>
+
+                    <material:TextField IsPassword="True" Title="Password" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static icons:MaterialRegular.Password}}">
+                        <validation:RequiredValidation />
+
+                        <material:TextField.Attachments>
+                            <material:TextFieldPasswordShowHideAttachment />
+                        </material:TextField.Attachments>
+                    </material:TextField>
+
+
+                    <Button Padding="15,0"
+                            CornerRadius="12"
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Login"
+                            BackgroundColor="{StaticResource Primary}"
+                            Clicked="LoginBtn_Clicked"/>
+
+                </VerticalStackLayout>
+                <Grid ColumnDefinitions="*,Auto,*">
+                    <BoxView Grid.Column="0" HeightRequest="1" Color="{StaticResource Primary}"/>
+                    <Button Grid.Column="1" Text="Forget Password" BackgroundColor="{StaticResource Primary}"  Padding="25,5" HorizontalOptions="Center"/>
+                    <BoxView Grid.Column="2" HeightRequest="1" Color="{StaticResource Primary}"/>
+
+                </Grid>
+            </VerticalStackLayout>
+
+
+
+
+        </ScrollView>
+
+    </Grid>
+
 </ContentPage>

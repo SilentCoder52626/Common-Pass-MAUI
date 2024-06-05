@@ -1,14 +1,16 @@
 ﻿using Common_Pass_MAUI.Pages;
+using Common_Pass_MAUI.Services;
 
 namespace Common_Pass_MAUI
 {
     public partial class MainPage : ContentPage
     {
-
-        public MainPage()
-        {
-            InitializeComponent();
-        }
+            private readonly IAccountService _accountService;
+            public MainPage(IAccountService accountService)
+            {
+                InitializeComponent();
+                _accountService = accountService;
+            }
         protected override async void OnAppearing()
         {
             base.OnAppearing();
@@ -20,8 +22,14 @@ namespace Common_Pass_MAUI
                 {
                     AppShell.Current.Dispatcher.Dispatch(async () =>
                     {
-                        //ToDo : check for authenticated or not to send to homepage or login page
-                        await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+                        if (await _accountService.IsUserValidated())
+                        {
+                            await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+                        }
+                        else
+                        {
+                            await Shell.Current.GoToAsync($"//{nameof(LoginRegisterPage)}");
+                        }
                     });
                 }
                 else
@@ -49,7 +57,7 @@ namespace Common_Pass_MAUI
                 }
             }
 
-            
+
         }
     }
 

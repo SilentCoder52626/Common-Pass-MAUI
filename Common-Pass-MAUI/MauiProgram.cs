@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Maui;
+﻿using Common_Pass_MAUI.Pages;
+using Common_Pass_MAUI.Services;
+using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
@@ -36,6 +38,11 @@ namespace Common_Pass_MAUI
                 var url = _config["BaseUrl"];
                 config.BaseAddress = new Uri(url);
             });
+
+            builder.Services.AddTransient<IAccountService, AccountService>();
+            builder.Services.AddSingleton<HomePage>();
+
+
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
