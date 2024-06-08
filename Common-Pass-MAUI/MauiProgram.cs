@@ -1,5 +1,6 @@
 ﻿using Common_Pass_MAUI.Pages;
 using Common_Pass_MAUI.Services;
+using Common_Pass_MAUI.ViewModels;
 using CommunityToolkit.Maui;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -40,7 +41,11 @@ namespace Common_Pass_MAUI
             });
 
             builder.Services.AddTransient<IAccountService, AccountService>();
+            builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<RegisterViewModel>();
             builder.Services.AddSingleton<HomePage>();
+            builder.Services.AddSingleton<LoginPage>();
+            builder.Services.AddSingleton<RegisterPage>();
 
 
 #if DEBUG

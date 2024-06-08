@@ -28,7 +28,7 @@ namespace Common_Pass_MAUI
                         }
                         else
                         {
-                            await Shell.Current.GoToAsync($"//{nameof(LoginRegisterPage)}");
+                            await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
                         }
                     });
                 }
@@ -48,7 +48,14 @@ namespace Common_Pass_MAUI
                 if (Preferences.Default.ContainsKey(UIConstants.OnBoardingShown))
                 {
                     //ToDo : check for authenticated or not to send to homepage or login page
-                    await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+                    if (await _accountService.IsUserValidated())
+                    {
+                        await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
+                    }
+                    else
+                    {
+                        await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+                    }
                 }
                 else
                 {

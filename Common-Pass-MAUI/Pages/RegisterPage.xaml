@@ -5,10 +5,12 @@
              xmlns:icons="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
              xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
              xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
-             x:Class="Common_Pass_MAUI.Pages.LoginRegisterPage"
+             xmlns:vm="clr-namespace:Common_Pass_MAUI.ViewModels"
+             x:Class="Common_Pass_MAUI.Pages.RegisterPage"
+             x:DataType="vm:RegisterViewModel"
              BackgroundColor="{StaticResource BgColor}">
 
-    <Grid RowDefinitions="2*,3*">
+    <Grid RowDefinitions="1.8*,3.2*">
         <Border Grid.Row="0"
         StrokeShape="RoundRectangle 120"
         HeightRequest="240"
@@ -31,18 +33,52 @@
                     Padding="10">
             <VerticalStackLayout Spacing="30">
                 <Grid ColumnDefinitions="*,Auto">
-                    <Label Grid.Column="0" Text="Login" FontSize="40" FontAttributes="Bold" LineHeight="1.2"/>
-                    <Label Grid.Column="1" Text="Switch to Register" FontSize="12" HorizontalOptions="End" Padding="5" TextDecorations="Underline" BackgroundColor="White" VerticalOptions="Center" FontAttributes="Bold"/>
+                    <Label Grid.Column="0" 
+                           Text="Register" 
+                           FontSize="40" 
+                           FontAttributes="Bold" 
+                           LineHeight="1.2"/>
+                    
+                    <Label Grid.Column="1" 
+                           Text="Switch to Login" 
+                           FontSize="12" 
+                           HorizontalOptions="End" 
+                           Padding="5" 
+                           TextDecorations="Underline" 
+                           BackgroundColor="White" 
+                           VerticalOptions="Center" 
+                           FontAttributes="Bold">
+                        
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GotoLoginPageCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
                 </Grid>
                 <VerticalStackLayout Spacing="20">
+                    
 
-
+                    <material:TextField Title="Name" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static icons:MaterialRegular.Account_circle}}" AllowClear="True" >
+                        <validation:RequiredValidation />
+                    </material:TextField>
                     <material:TextField Title="Email" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static icons:MaterialRegular.Email}}" AllowClear="True" >
                         <validation:RequiredValidation />
                         <validation:RegexValidation Pattern="{x:Static input:AdvancedEntry.REGEX_EMAIL}" Message="Invalid email address" />
                     </material:TextField>
 
+                    <material:TextField Title="Mobile" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static icons:MaterialRegular.Phone}}" AllowClear="True" >
+                        <validation:RequiredValidation />
+                        <validation:RegexValidation Pattern="{x:Static input:AdvancedEntry.REGEX_PHONE}" Message="Invalid mobile number" />
+                    </material:TextField>
+
                     <material:TextField IsPassword="True" Title="Password" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static icons:MaterialRegular.Password}}">
+                        <validation:RequiredValidation />
+
+                        <material:TextField.Attachments>
+                            <material:TextFieldPasswordShowHideAttachment />
+                        </material:TextField.Attachments>
+                    </material:TextField>
+
+                    <material:TextField IsPassword="True" Title="Confirm Password" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static icons:MaterialRegular.Password}}">
                         <validation:RequiredValidation />
 
                         <material:TextField.Attachments>
@@ -55,17 +91,12 @@
                             CornerRadius="12"
                             FontAttributes="Bold"
                             FontSize="20"
-                            Text="Login"
+                            Text="Register"
                             BackgroundColor="{StaticResource Primary}"
-                            Clicked="LoginBtn_Clicked"/>
+                            Command="{Binding RegisterCommand}"/>
 
                 </VerticalStackLayout>
-                <Grid ColumnDefinitions="*,Auto,*">
-                    <BoxView Grid.Column="0" HeightRequest="1" Color="{StaticResource Primary}"/>
-                    <Button Grid.Column="1" Text="Forget Password" BackgroundColor="{StaticResource Primary}"  Padding="25,5" HorizontalOptions="Center"/>
-                    <BoxView Grid.Column="2" HeightRequest="1" Color="{StaticResource Primary}"/>
-
-                </Grid>
+               
             </VerticalStackLayout>
 
 

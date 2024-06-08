@@ -15,7 +15,8 @@
     </Shell.Behaviors>
     <!--<ShellContent ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage"/>-->
     <ShellContent ContentTemplate="{DataTemplate pages:OnBoardingPage}" Route="OnBoardingPage" Shell.NavBarIsVisible="False" Shell.TabBarIsVisible="False"/>
-    <ShellContent ContentTemplate="{DataTemplate pages:LoginRegisterPage}" Route="LoginRegisterPage" Shell.NavBarIsVisible="False" Shell.TabBarIsVisible="False"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:LoginPage}" Route="LoginPage" Shell.NavBarIsVisible="False" Shell.TabBarIsVisible="False"/>
+    <ShellContent ContentTemplate="{DataTemplate pages:RegisterPage}" Route="RegisterPage" Shell.NavBarIsVisible="False" Shell.TabBarIsVisible="False"/>
 
     <TabBar>
         <Tab Title="Home">

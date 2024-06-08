@@ -10,6 +10,6 @@ public partial class OnBoardingPage : ContentPage
 
     private async void Explore_Btn_Clicked(object sender, EventArgs e)
     {
-		await Shell.Current.GoToAsync($"//{nameof(LoginRegisterPage)}");
+		await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
     }
 }
