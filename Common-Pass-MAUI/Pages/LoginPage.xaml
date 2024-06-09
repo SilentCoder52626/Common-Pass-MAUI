@@ -1,54 +1,80 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-             xmlns:icons="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
-             xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
-             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
-             xmlns:vm="clr-namespace:Common_Pass_MAUI.ViewModels"
-             x:Class="Common_Pass_MAUI.Pages.LoginPage"
-             x:DataType="vm:LoginViewModel"
-             BackgroundColor="{StaticResource BgColor}">
+<ContentPage
+    x:Class="Common_Pass_MAUI.Pages.LoginPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:icons="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+    xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
+    xmlns:vm="clr-namespace:Common_Pass_MAUI.ViewModels"
+    x:DataType="vm:LoginViewModel"
+    BackgroundColor="{StaticResource BgColor}">
 
     <Grid RowDefinitions="2*,3*">
-        <Border Grid.Row="0"
-        StrokeShape="RoundRectangle 120"
-        HeightRequest="240"
-        WidthRequest="240"
-        StrokeThickness="10"
-        Stroke="{StaticResource Primary}">
-            <Image Source="key.png"
-           HorizontalOptions="Center"
-           VerticalOptions="Center"
-           Aspect="AspectFill"
-           HeightRequest="200"
-           WidthRequest="200"/>
+        <Border
+            Grid.Row="0"
+            HeightRequest="240"
+            Stroke="{StaticResource Primary}"
+            StrokeShape="RoundRectangle 120"
+            StrokeThickness="10"
+            WidthRequest="240">
+            <Image
+                Aspect="AspectFill"
+                HeightRequest="200"
+                HorizontalOptions="Center"
+                Source="key.png"
+                VerticalOptions="Center"
+                WidthRequest="200" />
             <Border.Shadow>
-                <Shadow Brush="{StaticResource Primary}"/>
+                <Shadow Brush="{StaticResource Primary}" />
             </Border.Shadow>
 
         </Border>
 
-        <ScrollView Grid.Row="1"
-                    Padding="10">
+        <ScrollView Grid.Row="1" Padding="10">
             <VerticalStackLayout Spacing="30">
                 <Grid ColumnDefinitions="*,Auto">
-                    <Label Grid.Column="0" Text="Login" FontSize="40" FontAttributes="Bold" LineHeight="1.2"/>
-                    <Label Grid.Column="1" Text="Switch to Register" FontSize="12" HorizontalOptions="End" Padding="5" TextDecorations="Underline" BackgroundColor="White" VerticalOptions="Center" FontAttributes="Bold">
+                    <Label
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="40"
+                        LineHeight="1.2"
+                        Text="Login" />
+                    <Label
+                        Grid.Column="1"
+                        Padding="5"
+                        BackgroundColor="White"
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="End"
+                        Text="Switch to Register"
+                        TextDecorations="Underline"
+                        VerticalOptions="Center">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding GotoRegisterPageCommand}"/>
+                            <TapGestureRecognizer Command="{Binding GotoRegisterPageCommand}" />
                         </Label.GestureRecognizers>
                     </Label>
                 </Grid>
-                <VerticalStackLayout Spacing="20">
+                <input:FormView Spacing="20" SubmitCommand="{Binding LoginCommand}">
 
 
-                    <material:TextField Title="Email" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static icons:MaterialRegular.Email}}" AllowClear="True" >
+                    <material:TextField
+                        Title="Email"
+                        Text="{Binding Email}"
+                        AllowClear="True"
+                        Icon="{FontImageSource FontFamily=MaterialRegular,
+                                               Glyph={x:Static icons:MaterialRegular.Email}}">
                         <validation:RequiredValidation />
-                        <validation:RegexValidation Pattern="{x:Static input:AdvancedEntry.REGEX_EMAIL}" Message="Invalid email address" />
+                        <validation:RegexValidation Message="Invalid email address" Pattern="{x:Static input:AdvancedEntry.REGEX_EMAIL}" />
                     </material:TextField>
 
-                    <material:TextField IsPassword="True" Title="Password" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static icons:MaterialRegular.Password}}">
+                    <material:TextField
+                        Title="Password"
+                        Text="{Binding Password}"
+                        Icon="{FontImageSource FontFamily=MaterialRegular,
+                                               Glyph={x:Static icons:MaterialRegular.Password}}"
+                        IsPassword="True">
                         <validation:RequiredValidation />
 
                         <material:TextField.Attachments>
@@ -57,19 +83,31 @@
                     </material:TextField>
 
 
-                    <Button Padding="15,0"
-                            CornerRadius="12"
-                            FontAttributes="Bold"
-                            FontSize="20"
-                            Text="Login"
-                            BackgroundColor="{StaticResource Primary}"
-                            Command="{Binding LoginCommand}"/>
+                    <Button
+                        Padding="15,0"
+                        input:FormView.IsSubmitButton="True"
+                        BackgroundColor="{StaticResource Primary}"
+                        CornerRadius="12"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="Login" />
 
-                </VerticalStackLayout>
+                </input:FormView>
                 <Grid ColumnDefinitions="*,Auto,*">
-                    <BoxView Grid.Column="0" HeightRequest="1" Color="{StaticResource Primary}"/>
-                    <Button Grid.Column="1" Text="Forget Password" BackgroundColor="{StaticResource Primary}"  Padding="25,5" HorizontalOptions="Center"/>
-                    <BoxView Grid.Column="2" HeightRequest="1" Color="{StaticResource Primary}"/>
+                    <BoxView
+                        Grid.Column="0"
+                        HeightRequest="1"
+                        Color="{StaticResource Primary}" />
+                    <Button
+                        Grid.Column="1"
+                        Padding="25,5"
+                        BackgroundColor="{StaticResource Primary}"
+                        HorizontalOptions="Center"
+                        Text="Forget Password" />
+                    <BoxView
+                        Grid.Column="2"
+                        HeightRequest="1"
+                        Color="{StaticResource Primary}" />
 
                 </Grid>
             </VerticalStackLayout>
@@ -78,6 +116,12 @@
 
 
         </ScrollView>
+        <ActivityIndicator
+            HorizontalOptions="FillAndExpand"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="CenterAndExpand" 
+            Grid.RowSpan="2"/>
 
     </Grid>
 

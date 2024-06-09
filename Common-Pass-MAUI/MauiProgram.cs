@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System.Reflection;
 using UraniumUI;
+using UraniumUI.Dialogs;
 
 namespace Common_Pass_MAUI
 {
@@ -40,12 +41,13 @@ namespace Common_Pass_MAUI
                 config.BaseAddress = new Uri(url);
             });
 
-            builder.Services.AddTransient<IAccountService, AccountService>();
+            builder.Services.AddSingleton<IAccountService, AccountService>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegisterViewModel>();
             builder.Services.AddSingleton<HomePage>();
             builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<RegisterPage>();
+
 
 
 #if DEBUG
