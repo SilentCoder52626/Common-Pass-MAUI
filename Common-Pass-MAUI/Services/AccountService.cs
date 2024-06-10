@@ -15,6 +15,8 @@ namespace Common_Pass_MAUI.Services
     {
         Task<bool> IsUserValidated();
         Task<bool> Login(LoginModel model);
+        Task<bool> Register(RegisterModel model);
+        Task<List<UserModel>> GetUsers();
     }
     public class AccountService : IAccountService
     {
@@ -23,6 +25,24 @@ namespace Common_Pass_MAUI.Services
         public AccountService(IHttpClientFactory factory)
         {
             _client = factory.CreateClient("Pass_Client");
+        }
+
+        public async Task<List<UserModel>> GetUsers()
+        {
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var token = await TokenHelper.GetJWTTokenAsync();
+
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            HttpResponseMessage response = await _client.GetAsync("user");
+            if (response.IsSuccessStatusCode)
+            {
+                var result = JsonSerializer.Deserialize<List<UserModel>>(await response.Content.ReadAsStringAsync());
+                return result;
+            }
+            return new List<UserModel>();
         }
 
         public async Task<bool> IsUserValidated()
@@ -48,6 +68,22 @@ namespace Common_Pass_MAUI.Services
                 var result = await response.Content.ReadAsStringAsync();
 
                 await SecureStorage.SetAsync(UIConstants.UserTokenKey, result);
+                return true;
+            }
+            return false;
+        }
+        public async Task<bool> Register(RegisterModel model)
+        {
+            _client.DefaultRequestHeaders.Accept.Clear();
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            var jsonContent = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await _client.PostAsync("account/register", jsonContent);
+            if (response.IsSuccessStatusCode)
+            {
+                var result = JsonSerializer.Deserialize<ResponseModel>(await response.Content.ReadAsStringAsync());
+
                 return true;
             }
             return false;

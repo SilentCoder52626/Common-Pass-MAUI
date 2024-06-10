@@ -1,76 +1,108 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-             xmlns:icons="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
-             xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
-             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
-             xmlns:vm="clr-namespace:Common_Pass_MAUI.ViewModels"
-             x:Class="Common_Pass_MAUI.Pages.RegisterPage"
-             x:DataType="vm:RegisterViewModel"
-             BackgroundColor="{StaticResource BgColor}">
+<ContentPage
+    x:Class="Common_Pass_MAUI.Pages.RegisterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:icons="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+    xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
+    xmlns:vm="clr-namespace:Common_Pass_MAUI.ViewModels"
+    x:DataType="vm:RegisterViewModel"
+    BackgroundColor="{StaticResource BgColor}">
 
     <Grid RowDefinitions="1.8*,3.2*">
-        <Border Grid.Row="0"
-        StrokeShape="RoundRectangle 120"
-        HeightRequest="240"
-        WidthRequest="240"
-        StrokeThickness="10"
-        Stroke="{StaticResource Primary}">
-            <Image Source="key.png"
-           HorizontalOptions="Center"
-           VerticalOptions="Center"
-           Aspect="AspectFill"
-           HeightRequest="200"
-           WidthRequest="200"/>
+        <Border
+            Grid.Row="0"
+            HeightRequest="240"
+            Stroke="{StaticResource Primary}"
+            StrokeShape="RoundRectangle 120"
+            StrokeThickness="10"
+            WidthRequest="240">
+            <Image
+                Aspect="AspectFill"
+                HeightRequest="200"
+                HorizontalOptions="Center"
+                Source="key.png"
+                VerticalOptions="Center"
+                WidthRequest="200" />
             <Border.Shadow>
-                <Shadow Brush="{StaticResource Primary}"/>
+                <Shadow Brush="{StaticResource Primary}" />
             </Border.Shadow>
 
         </Border>
 
-        <ScrollView Grid.Row="1"
-                    Padding="10">
+        <ScrollView Grid.Row="1" Padding="10">
             <VerticalStackLayout Spacing="30">
                 <Grid ColumnDefinitions="*,Auto">
-                    <Label Grid.Column="0" 
-                           Text="Register" 
-                           FontSize="40" 
-                           FontAttributes="Bold" 
-                           LineHeight="1.2"/>
-                    
-                    <Label Grid.Column="1" 
-                           Text="Switch to Login" 
-                           FontSize="12" 
-                           HorizontalOptions="End" 
-                           Padding="5" 
-                           TextDecorations="Underline" 
-                           BackgroundColor="White" 
-                           VerticalOptions="Center" 
-                           FontAttributes="Bold">
-                        
+                    <Label
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="40"
+                        LineHeight="1.2"
+                        Text="Register" />
+
+                    <Label
+                        Grid.Column="1"
+                        Padding="5"
+                        BackgroundColor="White"
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        HorizontalOptions="End"
+                        Text="Switch to Login"
+                        TextDecorations="Underline"
+                        VerticalOptions="Center">
+
                         <Label.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding GotoLoginPageCommand}" />
                         </Label.GestureRecognizers>
                     </Label>
                 </Grid>
                 <VerticalStackLayout Spacing="20">
-                    
 
-                    <material:TextField Title="Name" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static icons:MaterialRegular.Account_circle}}" AllowClear="True" >
+
+                    <material:TextField
+                        Title="Name"
+                        AllowClear="True"
+                        Icon="{FontImageSource FontFamily=MaterialRegular,
+                                               Glyph={x:Static icons:MaterialRegular.Account_circle}}"
+                        Text="{Binding Name}">
                         <validation:RequiredValidation />
                     </material:TextField>
-                    <material:TextField Title="Email" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static icons:MaterialRegular.Email}}" AllowClear="True" >
+                    <material:TextField
+                        Title="User Name"
+                        AllowClear="True"
+                        Icon="{FontImageSource FontFamily=MaterialRegular,
+                                               Glyph={x:Static icons:MaterialRegular.Account_circle}}"
+                        Text="{Binding Username}">
                         <validation:RequiredValidation />
-                        <validation:RegexValidation Pattern="{x:Static input:AdvancedEntry.REGEX_EMAIL}" Message="Invalid email address" />
+                    </material:TextField>
+                    <material:TextField
+                        Title="Email"
+                        AllowClear="True"
+                        Icon="{FontImageSource FontFamily=MaterialRegular,
+                                               Glyph={x:Static icons:MaterialRegular.Email}}"
+                        Text="{Binding Email}">
+                        <validation:RequiredValidation />
+                        <validation:RegexValidation Message="Invalid email address" Pattern="{x:Static input:AdvancedEntry.REGEX_EMAIL}" />
                     </material:TextField>
 
-                    <material:TextField Title="Mobile" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static icons:MaterialRegular.Phone}}" AllowClear="True" >
+                    <material:TextField
+                        Title="Mobile"
+                        AllowClear="True"
+                        Icon="{FontImageSource FontFamily=MaterialRegular,
+                                               Glyph={x:Static icons:MaterialRegular.Phone}}"
+                        Text="{Binding Mobile}">
                         <validation:RequiredValidation />
-                        <validation:RegexValidation Pattern="{x:Static input:AdvancedEntry.REGEX_PHONE}" Message="Invalid mobile number" />
+                        <validation:RegexValidation Message="Invalid mobile number" Pattern="{x:Static input:AdvancedEntry.REGEX_PHONE}" />
                     </material:TextField>
 
-                    <material:TextField IsPassword="True" Title="Password" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static icons:MaterialRegular.Password}}">
+                    <material:TextField
+                        Title="Password"
+                        Icon="{FontImageSource FontFamily=MaterialRegular,
+                                               Glyph={x:Static icons:MaterialRegular.Password}}"
+                        IsPassword="True"
+                        Text="{Binding Password}">
                         <validation:RequiredValidation />
 
                         <material:TextField.Attachments>
@@ -78,7 +110,12 @@
                         </material:TextField.Attachments>
                     </material:TextField>
 
-                    <material:TextField IsPassword="True" Title="Confirm Password" Icon="{FontImageSource FontFamily=MaterialRegular, Glyph={x:Static icons:MaterialRegular.Password}}">
+                    <material:TextField
+                        Title="Confirm Password"
+                        Text="{Binding ConfirmPassword}"
+                        Icon="{FontImageSource FontFamily=MaterialRegular,
+                                               Glyph={x:Static icons:MaterialRegular.Password}}"
+                        IsPassword="True">
                         <validation:RequiredValidation />
 
                         <material:TextField.Attachments>
@@ -86,24 +123,33 @@
                         </material:TextField.Attachments>
                     </material:TextField>
 
-
-                    <Button Padding="15,0"
-                            CornerRadius="12"
-                            FontAttributes="Bold"
-                            FontSize="20"
-                            Text="Register"
-                            BackgroundColor="{StaticResource Primary}"
-                            Command="{Binding RegisterCommand}"/>
+                    <Label
+                        IsVisible="{Binding HasError}"
+                        Text="{Binding ErrorMessage}"
+                        TextColor="Red" />
+                    <Button
+                        Padding="15,0"
+                        BackgroundColor="{StaticResource Primary}"
+                        Command="{Binding RegisterCommand}"
+                        CornerRadius="12"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="Register" />
 
                 </VerticalStackLayout>
-               
+
             </VerticalStackLayout>
 
 
 
 
         </ScrollView>
-
+        <ActivityIndicator
+            Grid.RowSpan="2"
+            HorizontalOptions="FillAndExpand"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="CenterAndExpand" />
     </Grid>
 
 </ContentPage>

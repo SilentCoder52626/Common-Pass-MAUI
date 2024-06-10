@@ -44,6 +44,7 @@ namespace Common_Pass_MAUI
             builder.Services.AddSingleton<IAccountService, AccountService>();
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegisterViewModel>();
+            builder.Services.AddTransient<HomeViewModel>();
             builder.Services.AddSingleton<HomePage>();
             builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<RegisterPage>();

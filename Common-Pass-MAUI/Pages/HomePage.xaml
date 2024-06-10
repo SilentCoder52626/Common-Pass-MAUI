@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Common_Pass_MAUI.Pages.HomePage"
-             Title="HomePage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+<ContentPage
+    x:Class="Common_Pass_MAUI.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:vm="clr-namespace:Common_Pass_MAUI.ViewModels"
+    Title="HomePage"
+    x:DataType="vm:HomeViewModel">
+    <VerticalStackLayout Padding="20" Spacing="20">
+        <CollectionView ItemsSource="{Binding Users}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:UserModel">
+                    <Grid RowDefinitions="Auto,Auto,Auto">
+                        <Label
+                            Grid.Row="0"
+                            FontSize="Large"
+                            HorizontalOptions="Center"
+                            Text="{Binding Name}" />
+
+                        <Label
+                            Grid.Row="1"
+                            FontSize="Large"
+                            HorizontalOptions="Center"
+                            Text="{Binding EmailAddress}" />
+                        <Label
+                            Grid.Row="2"
+                            FontSize="Small"
+                            HorizontalOptions="Center"
+                            Text="{Binding MobileNumber}" />
+
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button
+            BackgroundColor="Black"
+            Clicked="Button_Clicked"
+            Text="Logout"
+            TextColor="Wheat" />
     </VerticalStackLayout>
 </ContentPage>
