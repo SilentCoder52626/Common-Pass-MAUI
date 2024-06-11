@@ -22,13 +22,7 @@ namespace Common_Pass_MAUI.ViewModels
 
         private async void LoadUsers()
         {
-            List<UserModel> users = await _accountService.GetUsers();
-            Users.Clear();
-            foreach (var user in users)
-            {
-
-                Users.Add(user);
-            }
+           
         }
 
         public ObservableCollection<UserModel> Users { get; set; } = new ObservableCollection<UserModel>();

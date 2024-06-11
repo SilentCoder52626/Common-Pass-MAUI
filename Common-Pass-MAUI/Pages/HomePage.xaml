@@ -5,10 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
     xmlns:vm="clr-namespace:Common_Pass_MAUI.ViewModels"
-    Title="HomePage"
-    x:DataType="vm:HomeViewModel">
+    x:DataType="vm:HomeViewModel"
+    Title="Home">
     <VerticalStackLayout Padding="20" Spacing="20">
-        <CollectionView ItemsSource="{Binding Users}">
+        <!--<CollectionView ItemsSource="{Binding Users}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="vm:UserModel">
                     <Grid RowDefinitions="Auto,Auto,Auto">
@@ -33,12 +33,8 @@
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
-        </CollectionView>
+        </CollectionView>-->
 
-        <Button
-            BackgroundColor="Black"
-            Clicked="Button_Clicked"
-            Text="Logout"
-            TextColor="Wheat" />
+
     </VerticalStackLayout>
 </ContentPage>

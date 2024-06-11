@@ -13,11 +13,5 @@ public partial class HomePage : ContentPage
         BindingContext = _vm;
     }
 
-    private async void Button_Clicked(object sender, EventArgs e)
-    {
-        SecureStorage.Remove(UIConstants.UserTokenKey);
-        await Shell.Current.DisplayPromptAsync("Logout successfully", "Thank you for sticking around. See you soon.");
-        await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
-
-    }
+    
 }

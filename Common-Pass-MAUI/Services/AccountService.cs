@@ -16,7 +16,7 @@ namespace Common_Pass_MAUI.Services
         Task<bool> IsUserValidated();
         Task<bool> Login(LoginModel model);
         Task<bool> Register(RegisterModel model);
-        Task<List<UserModel>> GetUsers();
+        Task<UserModel> GetProfile();
     }
     public class AccountService : IAccountService
     {
@@ -27,7 +27,7 @@ namespace Common_Pass_MAUI.Services
             _client = factory.CreateClient("Pass_Client");
         }
 
-        public async Task<List<UserModel>> GetUsers()
+        public async Task<UserModel> GetProfile()
         {
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -36,13 +36,13 @@ namespace Common_Pass_MAUI.Services
 
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            HttpResponseMessage response = await _client.GetAsync("user");
+            HttpResponseMessage response = await _client.GetAsync("user/profile");
             if (response.IsSuccessStatusCode)
             {
-                var result = JsonSerializer.Deserialize<List<UserModel>>(await response.Content.ReadAsStringAsync());
+                var result = JsonSerializer.Deserialize<UserModel>(await response.Content.ReadAsStringAsync());
                 return result;
             }
-            return new List<UserModel>();
+            return new UserModel();
         }
 
         public async Task<bool> IsUserValidated()
