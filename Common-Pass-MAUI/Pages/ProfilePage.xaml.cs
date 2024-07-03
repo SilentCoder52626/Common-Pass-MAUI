@@ -12,7 +12,7 @@ public partial class ProfilePage : ContentPage
         _vm = vm;
         BindingContext = _vm;
     }
-
+    
     private async void Button_Clicked(object sender, EventArgs e)
     {
         SecureStorage.Remove(UIConstants.UserTokenKey);

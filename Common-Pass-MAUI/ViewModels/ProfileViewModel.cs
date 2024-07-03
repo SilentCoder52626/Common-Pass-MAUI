@@ -17,22 +17,18 @@ namespace Common_Pass_MAUI.ViewModels
         {
             _accountService = accountService;
             LoadProfile();
-
         }
-        async void LoadProfile()
+        public async void LoadProfile()
         {
             var profileData = await _accountService.GetProfile();
 
             this.Name = profileData?.Name ?? String.Empty;
             this.Email = profileData?.EmailAddress ?? String.Empty;
-            GetNameString = $"Hello, {Name}";
         }
         [ObservableProperty]
         string _name;
         [ObservableProperty]
         string _email;
-        [ObservableProperty]
-        string _getNameString;
 
     }
 }

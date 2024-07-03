@@ -3,33 +3,115 @@
     x:Class="Common_Pass_MAUI.Pages.ProfilePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:icons="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
     xmlns:vm="clr-namespace:Common_Pass_MAUI.ViewModels"
     Title="Profile"
     x:DataType="vm:ProfileViewModel">
-    <Grid Padding="10" ColumnDefinitions="*,*">
+    <Grid RowDefinitions="3*,7*">
 
-        <VerticalStackLayout Grid.Column="0">
-            <Label
-                FontAttributes="Bold"
-                FontSize="30"
-                HorizontalOptions="Start"
-                Text="{Binding GetNameString}"
-                VerticalOptions="Start" />
-            <Label
-                FontSize="16"
-                HorizontalOptions="Start"
-                Text="{Binding Email}"
-                VerticalOptions="Start" />
-        </VerticalStackLayout>
+        <Border
+            Grid.Row="0"
+            Padding="10"
+            BackgroundColor="FloralWhite"
+            StrokeShape="RoundRectangle 0,0,20,20"
+            StrokeThickness="0"
+            VerticalOptions="FillAndExpand">
 
-        <Button
-            Grid.Column="1"
-            BackgroundColor="Red"
-            Clicked="Button_Clicked"
-            HorizontalOptions="End"
-            Text="Logout"
-            TextColor="Black"
-            VerticalOptions="Start" />
+            <VerticalStackLayout Padding="40">
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="40"
+                    HorizontalOptions="Center"
+                    Text="{Binding Name}"
+                    VerticalOptions="CenterAndExpand" />
+                <Label
+                    FontSize="12"
+                    HorizontalOptions="Center"
+                    Text="{Binding Email}"
+                    VerticalOptions="Center" />
+            </VerticalStackLayout>
+
+        </Border>
+
+
+        <HorizontalStackLayout Grid.Row="1" Spacing="10">
+            <Border
+                Padding="10"
+                BackgroundColor="Tomato"
+                StrokeShape="Rectangle"
+                StrokeThickness="0"
+                VerticalOptions="Start">
+                <Grid ColumnDefinitions="2*,auto,2*">
+                    <Image
+                        Grid.Column="0"
+                        HeightRequest="20"
+                        WidthRequest="20">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="MaterialRegular"
+                                Glyph="{x:Static icons:MaterialRegular.Logout}"
+                                Color="Black" />
+                        </Image.Source>
+                    </Image>
+
+                    <Label
+                        Grid.Column="1"
+                        FontSize="18"
+                        Text="Logout"
+                        TextColor="Black" />
+                    <Image
+                        Grid.Column="2"
+                        HeightRequest="20"
+                        WidthRequest="20">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="MaterialRegular"
+                                Glyph="{x:Static icons:MaterialRegular.Keyboard_arrow_right}"
+                                Color="Black" />
+                        </Image.Source>
+                    </Image>
+                </Grid>
+            </Border>
+            <Border
+                Padding="10"
+                BackgroundColor="Tomato"
+                HorizontalOptions="CenterAndExpand"
+                StrokeShape="Rectangle"
+                StrokeThickness="0"
+                VerticalOptions="Start">
+                <Grid ColumnDefinitions="2*,auto,2*">
+                    <Image
+                        Grid.Column="0"
+                        HeightRequest="20"
+                        WidthRequest="20">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="MaterialRegular"
+                                Glyph="{x:Static icons:MaterialRegular.Settings}"
+                                Color="Black" />
+                        </Image.Source>
+                    </Image>
+
+                    <Label
+                        Grid.Column="1"
+                        FontSize="18"
+                        Text="Settings"
+                        TextColor="Black" />
+                    <Image
+                        Grid.Column="2"
+                        HeightRequest="20"
+                        WidthRequest="20">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="MaterialRegular"
+                                Glyph="{x:Static icons:MaterialRegular.Keyboard_arrow_right}"
+                                Color="Black" />
+                        </Image.Source>
+                    </Image>
+                </Grid>
+            </Border>
+
+        </HorizontalStackLayout>
     </Grid>
 
 
