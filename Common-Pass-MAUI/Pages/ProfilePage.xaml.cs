@@ -1,4 +1,5 @@
 using Common_Pass_MAUI.ViewModels;
+using CommunityToolkit.Maui.Views;
 
 namespace Common_Pass_MAUI.Pages;
 
@@ -12,12 +13,18 @@ public partial class ProfilePage : ContentPage
         _vm = vm;
         BindingContext = _vm;
     }
-    
-    private async void Button_Clicked(object sender, EventArgs e)
+
+    private async void LogoutBtnClicked(object sender, EventArgs e)
     {
         SecureStorage.Remove(UIConstants.UserTokenKey);
-        await Shell.Current.DisplayAlert("Logout successfully", "Thank you for sticking around. See you soon.","Ok");
+        await Shell.Current.DisplayAlert("Logout successfully", "Thank you for sticking around. See you soon.", "Ok");
         await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
 
     }
+    private void SettingBtnClicked(object sender, EventArgs e)
+    {
+        var setting = new SettingPage();
+        this.ShowPopup(setting);
+    }
+
 }

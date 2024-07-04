@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    x:Class="Common_Pass_MAUI.Pages.SettingPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:icons="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+    xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
+    CanBeDismissedByTappingOutsideOfPopup="False">
+
+    <ScrollView Padding="10">
+        <VerticalStackLayout Spacing="30">
+            <Label
+                Grid.Column="0"
+                FontAttributes="Bold"
+                FontSize="40"
+                LineHeight="1.2"
+                Text="Setting" />
+            <input:FormView Spacing="20" SubmitCommand="{Binding LoginCommand}">
+
+
+                <material:TextField
+                    Title="Encryption Key"
+                    AllowClear="True"
+                    Icon="{FontImageSource FontFamily=MaterialRegular,
+                                           Glyph={x:Static icons:MaterialRegular.Email}}"
+                    IsPassword="True"
+                    Text="Hexadecimal">
+                    <validation:RequiredValidation />
+                    <material:TextField.Attachments>
+                        <material:TextFieldPasswordShowHideAttachment />
+                    </material:TextField.Attachments>
+                </material:TextField>
+
+                <material:TextField
+                    Title="Export Pin"
+                    Icon="{FontImageSource FontFamily=MaterialRegular,
+                                           Glyph={x:Static icons:MaterialRegular.Password}}"
+                    IsPassword="True"
+                    Text="Pin">
+                    <validation:RequiredValidation />
+
+                    <material:TextField.Attachments>
+                        <material:TextFieldPasswordShowHideAttachment />
+                    </material:TextField.Attachments>
+                </material:TextField>
+
+                <Grid ColumnDefinitions="*,*">
+                    <Button
+                        Padding="15,0"
+                        input:FormView.IsSubmitButton="True"
+                        BackgroundColor="{StaticResource Primary}"
+                        CornerRadius="12"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="Login" />
+                    <Button
+                        Grid.Column="1"
+                        Padding="15,0"
+                        input:FormView.IsSubmitButton="False"
+                        BackgroundColor="{StaticResource Secondary}"
+                        Clicked="Button_Clicked"
+                        CornerRadius="12"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="Close" />
+                </Grid>
+
+
+            </input:FormView>
+
+        </VerticalStackLayout>
+
+
+
+
+    </ScrollView>
+    <!--<ActivityIndicator
+        Grid.RowSpan="2"
+        HorizontalOptions="FillAndExpand"
+        IsRunning="{Binding IsBusy}"
+        IsVisible="{Binding IsBusy}"
+        VerticalOptions="CenterAndExpand" />-->
+</toolkit:Popup>

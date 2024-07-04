@@ -34,7 +34,10 @@
         </Border>
 
 
-        <HorizontalStackLayout Grid.Row="1" Spacing="10">
+        <HorizontalStackLayout
+            Grid.Row="1"
+            Padding="10,10,10,0"
+            Spacing="10">
             <Border
                 Padding="10"
                 BackgroundColor="Tomato"
@@ -70,6 +73,9 @@
                                 Color="Black" />
                         </Image.Source>
                     </Image>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="LogoutBtnClicked" />
+                    </Grid.GestureRecognizers>
                 </Grid>
             </Border>
             <Border
@@ -108,6 +114,9 @@
                                 Color="Black" />
                         </Image.Source>
                     </Image>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SettingBtnClicked" />
+                    </Grid.GestureRecognizers>
                 </Grid>
             </Border>
 
