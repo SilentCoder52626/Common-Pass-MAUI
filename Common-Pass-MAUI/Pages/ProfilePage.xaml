@@ -7,20 +7,37 @@
     xmlns:vm="clr-namespace:Common_Pass_MAUI.ViewModels"
     Title="Profile"
     x:DataType="vm:ProfileViewModel">
-    <Grid RowDefinitions="3*,7*">
+    <Grid RowDefinitions="25*,75*">
 
         <Border
             Grid.Row="0"
-            Padding="10"
-            BackgroundColor="FloralWhite"
+            Padding="5"
+            BackgroundColor="Transparent"
             StrokeShape="RoundRectangle 0,0,20,20"
-            StrokeThickness="0"
+            StrokeThickness="1"
             VerticalOptions="FillAndExpand">
 
-            <VerticalStackLayout Padding="40">
+            <VerticalStackLayout Padding="20">
+                <Border
+                    HeightRequest="50"
+                    HorizontalOptions="Center"
+                    Stroke="{StaticResource Primary}"
+                    StrokeShape="RoundRectangle 24"
+                    StrokeThickness="2"
+                    VerticalOptions="Center"
+                    WidthRequest="50">
+                    <Image
+                        Aspect="AspectFit"
+                        HeightRequest="46"
+                        HorizontalOptions="Center"
+                        Source="dotnet_bot.png"
+                        VerticalOptions="Center"
+                        WidthRequest="46" />
+                </Border>
+
                 <Label
                     FontAttributes="Bold"
-                    FontSize="40"
+                    FontSize="30"
                     HorizontalOptions="Center"
                     Text="{Binding Name}"
                     VerticalOptions="CenterAndExpand" />
@@ -34,13 +51,16 @@
         </Border>
 
 
-        <HorizontalStackLayout
+        <VerticalStackLayout
             Grid.Row="1"
-            Padding="10,10,10,0"
-            Spacing="10">
+            Padding="10,10,10,10"
+            Spacing="10"
+            VerticalOptions="End">
+
             <Border
                 Padding="10"
-                BackgroundColor="Tomato"
+                BackgroundColor="MediumPurple"
+                HorizontalOptions="FillAndExpand"
                 StrokeShape="Rectangle"
                 StrokeThickness="0"
                 VerticalOptions="Start">
@@ -48,6 +68,50 @@
                     <Image
                         Grid.Column="0"
                         HeightRequest="20"
+                        HorizontalOptions="Start"
+                        WidthRequest="20">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="MaterialRegular"
+                                Glyph="{x:Static icons:MaterialRegular.Settings}"
+                                Color="Black" />
+                        </Image.Source>
+                    </Image>
+
+                    <Label
+                        Grid.Column="1"
+                        FontSize="18"
+                        Text="Setting"
+                        TextColor="Black" />
+                    <Image
+                        Grid.Column="2"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        WidthRequest="20">
+                        <Image.Source>
+                            <FontImageSource
+                                FontFamily="MaterialRegular"
+                                Glyph="{x:Static icons:MaterialRegular.Keyboard_arrow_right}"
+                                Color="Black" />
+                        </Image.Source>
+                    </Image>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="SettingBtnClicked" />
+                    </Grid.GestureRecognizers>
+                </Grid>
+            </Border>
+            <Border
+                Padding="10"
+                BackgroundColor="Red"
+                HorizontalOptions="FillAndExpand"
+                StrokeShape="Rectangle"
+                StrokeThickness="0"
+                VerticalOptions="Start">
+                <Grid ColumnDefinitions="2*,auto,2*">
+                    <Image
+                        Grid.Column="0"
+                        HeightRequest="20"
+                        HorizontalOptions="Start"
                         WidthRequest="20">
                         <Image.Source>
                             <FontImageSource
@@ -65,6 +129,7 @@
                     <Image
                         Grid.Column="2"
                         HeightRequest="20"
+                        HorizontalOptions="End"
                         WidthRequest="20">
                         <Image.Source>
                             <FontImageSource
@@ -78,49 +143,9 @@
                     </Grid.GestureRecognizers>
                 </Grid>
             </Border>
-            <Border
-                Padding="10"
-                BackgroundColor="Tomato"
-                HorizontalOptions="CenterAndExpand"
-                StrokeShape="Rectangle"
-                StrokeThickness="0"
-                VerticalOptions="Start">
-                <Grid ColumnDefinitions="2*,auto,2*">
-                    <Image
-                        Grid.Column="0"
-                        HeightRequest="20"
-                        WidthRequest="20">
-                        <Image.Source>
-                            <FontImageSource
-                                FontFamily="MaterialRegular"
-                                Glyph="{x:Static icons:MaterialRegular.Settings}"
-                                Color="Black" />
-                        </Image.Source>
-                    </Image>
 
-                    <Label
-                        Grid.Column="1"
-                        FontSize="18"
-                        Text="Settings"
-                        TextColor="Black" />
-                    <Image
-                        Grid.Column="2"
-                        HeightRequest="20"
-                        WidthRequest="20">
-                        <Image.Source>
-                            <FontImageSource
-                                FontFamily="MaterialRegular"
-                                Glyph="{x:Static icons:MaterialRegular.Keyboard_arrow_right}"
-                                Color="Black" />
-                        </Image.Source>
-                    </Image>
-                    <Grid.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="SettingBtnClicked" />
-                    </Grid.GestureRecognizers>
-                </Grid>
-            </Border>
+        </VerticalStackLayout>
 
-        </HorizontalStackLayout>
     </Grid>
 
 
