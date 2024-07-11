@@ -8,76 +8,82 @@
     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
-    BackgroundColor="White"
+    xmlns:vm="clr-namespace:Common_Pass_MAUI.ViewModels"
+    x:DataType="vm:SettingPageViewModel"
     CanBeDismissedByTappingOutsideOfPopup="False"
-    CornerRadius="12">
+    HorizontalOptions="Center"
+    Size="500,400"
+    VerticalOptions="Center">
 
-    <ScrollView Padding="20">
-        <VerticalStackLayout Spacing="30">
-            <Label
-                FontAttributes="Bold"
-                FontSize="30"
-                HorizontalOptions="Center"
-                LineHeight="1.2"
-                Text="Settings" />
+    <VerticalStackLayout Padding="20" Spacing="30">
 
-            <input:FormView Spacing="20" SubmitCommand="{Binding LoginCommand}">
+        <Label
+            FontAttributes="Bold"
+            FontSize="30"
+            HorizontalOptions="Center"
+            LineHeight="1.2"
+            Text="Settings" />
 
-                <material:TextField
-                    Title="Encryption Key"
-                    AllowClear="True"
-                    Icon="{FontImageSource FontFamily=MaterialRegular,
-                                           Glyph={x:Static icons:MaterialRegular.Email}}"
-                    IsPassword="True"
-                    Placeholder="Enter Hexadecimal"
-                    Text=""
-                    WidthRequest="300">
-                    <validation:RequiredValidation />
-                    <material:TextField.Attachments>
-                        <material:TextFieldPasswordShowHideAttachment />
-                    </material:TextField.Attachments>
-                </material:TextField>
+        <input:FormView Spacing="20" SubmitCommand="{Binding SaveSettingCommand}">
 
-                <material:TextField
-                    Title="Export Pin"
-                    Icon="{FontImageSource FontFamily=MaterialRegular,
-                                           Glyph={x:Static icons:MaterialRegular.Password}}"
-                    IsPassword="True                    Text=""
-                    WidthRequest="300">
-                    <validation:RequiredValidation />
-                    <material:TextField.Attachments>
-                        <material:TextFieldPasswordShowHideAttachment />
-                    </material:TextField.Attachments>
-                </material:TextField>
+            <material:TextField
+                Title="Encryption Key (16 digit hexadecimal)"
+                AllowClear="True"
+                Icon="{FontImageSource FontFamily=MaterialRegular,
+                                       Glyph={x:Static icons:MaterialRegular.Key}}"
+                IsPassword="True"
+                Text="{Binding EncryptionKey}">
+                <validation:RequiredValidation />
+                <validation:RegexValidation Message="Please type 16 digit hexadecimal." Pattern="^[0-9A-Fa-f]{16}$" />
+                <material:TextField.Attachments>
+                    <material:TextFieldPasswordShowHideAttachment />
+                </material:TextField.Attachments>
+            </material:TextField>
 
-                <Grid
-                    Padding="0"
-                    ColumnDefinitions="*,*"
-                    HorizontalOptions="Center"
-                    WidthRequest="300">
-                    <Button
-                        Margin="0,0,5,0"
-                        Padding="15,0"
-                        input:FormView.IsSubmitButton="True"
-                        BackgroundColor="{StaticResource Primary}"
-                        CornerRadius="12"
-                        FontAttributes="Bold"
-                        FontSize="20"
-                        Text="Save" />
-                    <Button
-                        Grid.Column="1"
-                        Margin="5,0,0,0"
-                        Padding="15,0"
-                        input:FormView.IsSubmitButton="False"
-                        BackgroundColor="{StaticResource Secondary}"
-                        Clicked="Button_Clicked"
-                        CornerRadius="12"
-                        FontAttributes="Bold"
-                        FontSize="20"
-                        Text="Close" />
-                </Grid>
+            <material:TextField
+                Title="Export Pin"
+                Icon="{FontImageSource FontFamily=MaterialRegular,
+                                       Glyph={x:Static icons:MaterialRegular.Password}}"
+                IsPassword="True"
+                Text="{Binding ExportPin}">
+                <validation:RequiredValidation />
+                <material:TextField.Attachments>
+                    <material:TextFieldPasswordShowHideAttachment />
+                </material:TextField.Attachments>
+            </material:TextField>
 
-            </input:FormView>
-        </VerticalStackLayout>
-    </ScrollView>
+            <Grid
+                Padding="0"
+                ColumnDefinitions="*,*"
+                HorizontalOptions="CenterAndExpand">
+                <Button
+                    Margin="0,0,5,0"
+                    Padding="15,0"
+                    input:FormView.IsSubmitButton="True"
+                    BackgroundColor="{StaticResource Primary}"
+                    CornerRadius="12"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Save" />
+                <Button
+                    Grid.Column="1"
+                    Margin="5,0,0,0"
+                    Padding="15,0"
+                    input:FormView.IsSubmitButton="False"
+                    BackgroundColor="{StaticResource Secondary}"
+                    Clicked="Button_Clicked"
+                    CornerRadius="12"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Close" />
+            </Grid>
+
+        </input:FormView>
+        <ActivityIndicator
+            HorizontalOptions="FillAndExpand"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="CenterAndExpand" />
+    </VerticalStackLayout>
+
 </toolkit:Popup>

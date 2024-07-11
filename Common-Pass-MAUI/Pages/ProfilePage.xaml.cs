@@ -23,8 +23,10 @@ public partial class ProfilePage : ContentPage
     }
     private void SettingBtnClicked(object sender, EventArgs e)
     {
-        var setting = new SettingPage();
-        this.ShowPopup(setting);
+        var viewModel = Application.Current.Handler.MauiContext.Services.GetService<SettingPageViewModel>();
+
+        var settingPage = new SettingPage(viewModel);
+        this.ShowPopup(settingPage);
     }
 
 }
