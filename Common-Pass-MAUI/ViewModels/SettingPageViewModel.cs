@@ -1,4 +1,5 @@
 ﻿using Common_Pass_MAUI.Enums;
+using Common_Pass_MAUI.Pages;
 using Common_Pass_MAUI.Services;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
@@ -9,16 +10,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UraniumUI.Dialogs;
 
 namespace Common_Pass_MAUI.ViewModels
 {
     public partial class SettingPageViewModel : ObservableObject
     {
         ISettingService _settingService;
+        private readonly IDialogService _dialogService;
 
-        public SettingPageViewModel(ISettingService settingService)
+
+        public SettingPageViewModel(ISettingService settingService, IDialogService dialogService)
         {
             _settingService = settingService;
+            _dialogService = dialogService;
         }
 
         [ObservableProperty]
@@ -30,6 +35,7 @@ namespace Common_Pass_MAUI.ViewModels
 
         public async Task LoadSettingData()
         {
+
             IsBusy = true;
             var setting = await _settingService.GetSetting();
             if (setting.Any(a => a.Key == SettingKey.EncryptionKey.ToString()))
@@ -65,12 +71,7 @@ namespace Common_Pass_MAUI.ViewModels
             }
             catch (Exception ex)
             {
-                string message = ex.Message;
-                ToastDuration duration = ToastDuration.Short;
-                double fontSize = 14;
-
-                var toast = Toast.Make(message, duration, fontSize);
-                await toast.Show();
+                await _dialogService.DisplayTextPromptAsync("Error!!", ex.Message);
             }
             finally
             {
