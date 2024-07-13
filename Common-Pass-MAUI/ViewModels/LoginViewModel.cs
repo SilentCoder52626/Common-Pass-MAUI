@@ -42,6 +42,7 @@ namespace Common_Pass_MAUI.ViewModels
                 });
                 if (IsSuccess)
                 {
+                    Password = String.Empty;
                     await Shell.Current.GoToAsync($"//{nameof(HomePage)}");
                 }
                 else

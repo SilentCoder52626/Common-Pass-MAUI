@@ -8,32 +8,7 @@
     x:DataType="vm:HomeViewModel"
     Title="Home">
     <VerticalStackLayout Padding="20" Spacing="20">
-        <!--<CollectionView ItemsSource="{Binding Users}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="vm:UserModel">
-                    <Grid RowDefinitions="Auto,Auto,Auto">
-                        <Label
-                            Grid.Row="0"
-                            FontSize="Large"
-                            HorizontalOptions="Center"
-                            Text="{Binding Name}" />
-
-                        <Label
-                            Grid.Row="1"
-                            FontSize="Large"
-                            HorizontalOptions="Center"
-                            Text="{Binding EmailAddress}" />
-                        <Label
-                            Grid.Row="2"
-                            FontSize="Small"
-                            HorizontalOptions="Center"
-                            Text="{Binding MobileNumber}" />
-
-
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>-->
+      
 
 
     </VerticalStackLayout>

@@ -1,5 +1,6 @@
 using Common_Pass_MAUI.ViewModels;
 using CommunityToolkit.Maui.Views;
+using Microsoft.Maui.Devices;
 
 namespace Common_Pass_MAUI.Pages;
 

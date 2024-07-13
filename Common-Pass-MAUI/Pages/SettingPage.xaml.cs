@@ -12,7 +12,7 @@ public partial class SettingPage : Popup
 		_vm = vm;
 		BindingContext = _vm;
         LoadSettings();
-	}
+    }
     protected async void LoadSettings()
     {
         await _vm.LoadSettingData();
