@@ -44,7 +44,7 @@
                     <Label
                         Grid.Column="1"
                         Padding="5"
-                        BackgroundColor="White"
+                        BackgroundColor="Transparent"
                         FontAttributes="Bold"
                         FontSize="12"
                         HorizontalOptions="End"
@@ -61,20 +61,20 @@
 
                     <material:TextField
                         Title="Email"
-                        Text="{Binding Email}"
                         AllowClear="True"
                         Icon="{FontImageSource FontFamily=MaterialRegular,
-                                               Glyph={x:Static icons:MaterialRegular.Email}}">
+                                               Glyph={x:Static icons:MaterialRegular.Email}}"
+                        Text="{Binding Email}">
                         <validation:RequiredValidation />
                         <validation:RegexValidation Message="Invalid email address" Pattern="{x:Static input:AdvancedEntry.REGEX_EMAIL}" />
                     </material:TextField>
 
                     <material:TextField
                         Title="Password"
-                        Text="{Binding Password}"
                         Icon="{FontImageSource FontFamily=MaterialRegular,
                                                Glyph={x:Static icons:MaterialRegular.Password}}"
-                        IsPassword="True">
+                        IsPassword="True"
+                        Text="{Binding Password}">
                         <validation:RequiredValidation />
 
                         <material:TextField.Attachments>
@@ -117,11 +117,11 @@
 
         </ScrollView>
         <ActivityIndicator
+            Grid.RowSpan="2"
             HorizontalOptions="FillAndExpand"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
-            VerticalOptions="CenterAndExpand" 
-            Grid.RowSpan="2"/>
+            VerticalOptions="CenterAndExpand" />
 
     </Grid>
 

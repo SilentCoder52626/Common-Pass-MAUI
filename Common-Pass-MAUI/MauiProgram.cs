@@ -43,6 +43,7 @@ namespace Common_Pass_MAUI
 
             builder.Services.AddSingleton<IAccountService, AccountService>();
             builder.Services.AddScoped<ISettingService, SettingService>();
+            builder.Services.AddScoped<IAccountDetailsService , AccountDetailsService>();
 
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegisterViewModel>();

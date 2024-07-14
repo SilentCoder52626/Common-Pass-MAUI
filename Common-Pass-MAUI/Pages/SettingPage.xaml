@@ -13,7 +13,7 @@
     CanBeDismissedByTappingOutsideOfPopup="False"
     HorizontalOptions="Center"
     VerticalOptions="Center">
-    <Frame WidthRequest="500" BackgroundColor="White">
+    <Frame BackgroundColor="White" WidthRequest="500">
         <VerticalStackLayout Padding="20" Spacing="20">
 
             <!--  Header  -->
@@ -29,11 +29,11 @@
                 BackgroundColor="Gray"
                 HeightRequest="1"
                 HorizontalOptions="FillAndExpand" />
+            <input:FormView Spacing="20" SubmitCommand="{Binding SaveSettingCommand}">
 
-            <!--  Body  -->
-            <ScrollView Padding="20,30">
-                <VerticalStackLayout Spacing="20">
-                    <input:FormView Spacing="20" SubmitCommand="{Binding SaveSettingCommand}">
+                <!--  Body  -->
+                <ScrollView Padding="20,30">
+                    <VerticalStackLayout Spacing="20">
 
                         <material:TextField
                             Title="Encryption Key (16 digit hexadecimal)"
@@ -60,49 +60,50 @@
                                 <material:TextFieldPasswordShowHideAttachment />
                             </material:TextField.Attachments>
                         </material:TextField>
-                    </input:FormView>
-                </VerticalStackLayout>
-            </ScrollView>
+                    </VerticalStackLayout>
+                </ScrollView>
 
-            <!--  Separator  -->
-            <BoxView
-                BackgroundColor="Gray"
-                HeightRequest="1"
-                HorizontalOptions="FillAndExpand" />
+                <!--  Separator  -->
+                <BoxView
+                    BackgroundColor="Gray"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand" />
 
-            <!--  Footer  -->
-            <Grid Padding="0" ColumnDefinitions="*,*">
-                <Button
-                    Grid.Column="0"
-                    Margin="0,0,5,0"
-                    Padding="15,0"
-                    input:FormView.IsSubmitButton="True"
-                    BackgroundColor="{StaticResource Primary}"
-                    CornerRadius="12"
-                    FontAttributes="Bold"
-                    FontSize="20"
-                    Text="Save" />
+                <!--  Footer  -->
+                <Grid Padding="0" ColumnDefinitions="*,*">
+                    <Button
+                        Grid.Column="0"
+                        Margin="0,0,5,0"
+                        Padding="15,0"
+                        input:FormView.IsSubmitButton="True"
+                        BackgroundColor="{StaticResource Primary}"
+                        CornerRadius="12"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="Save" />
 
-                <Button
-                    Grid.Column="1"
-                    Margin="5,0,0,0"
-                    Padding="15,0"
-                    input:FormView.IsSubmitButton="False"
-                    BackgroundColor="{StaticResource Secondary}"
-                    Clicked="Button_Clicked"
-                    CornerRadius="12"
-                    FontAttributes="Bold"
-                    FontSize="20"
-                    Text="Close" />
-            </Grid>
+                    <Button
+                        Grid.Column="1"
+                        Margin="5,0,0,0"
+                        Padding="15,0"
+                        input:FormView.IsSubmitButton="False"
+                        BackgroundColor="{StaticResource Secondary}"
+                        Clicked="Button_Clicked"
+                        CornerRadius="12"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="Close" />
+                </Grid>
+                <!--  Activity Indicator  -->
+                <ActivityIndicator
+                    HorizontalOptions="FillAndExpand"
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}"
+                    VerticalOptions="CenterAndExpand" />
+
+            </input:FormView>
 
 
-            <!--  Activity Indicator  -->
-            <ActivityIndicator
-                HorizontalOptions="FillAndExpand"
-                IsRunning="{Binding IsBusy}"
-                IsVisible="{Binding IsBusy}"
-                VerticalOptions="CenterAndExpand" />
         </VerticalStackLayout>
 
     </Frame>

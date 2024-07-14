@@ -1,5 +1,9 @@
-﻿using Common_Pass_MAUI.Services;
+﻿using Common_Pass_MAUI.Models;
+using Common_Pass_MAUI.Pages;
+using Common_Pass_MAUI.Services;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,36 +13,42 @@ using System.Threading.Tasks;
 
 namespace Common_Pass_MAUI.ViewModels
 {
-    public class HomeViewModel : ObservableObject
+    public partial class HomeViewModel : ObservableObject
     {
-        private readonly IAccountService _accountService;
-        public HomeViewModel(IAccountService accountService)
+        private readonly IAccountDetailsService _accountDetailsService;
+        public HomeViewModel(IAccountDetailsService accountDetailsService)
         {
-            _accountService = accountService;
+            _accountDetailsService = accountDetailsService;
+            LoadAccounts();
+        }
+        [RelayCommand]
+        public async void LoadAccounts()
+        {
+            var Accs = await _accountDetailsService.GetAccountDetails();
+            foreach(var data in Accs.Details)
+            {
+                Accounts.Add(new AccountDetailsDto()
+                {
+                    Account = data.Account,
+                    Id = data.Id,
+                    Pass = data.Pass,
+                    UserName = data.UserName,
+                });
+            }
+        }
+        [RelayCommand]
+        public void GoToDetailsPageCommand(AccountDetailsDto dto)
+        {
+             var viewModel = Application.Current.Handler.MauiContext.Services.GetService<SettingPageViewModel>();
 
-            LoadUsers();
-            
+        var settingPage = new SettingPage(viewModel);
+            Shell.Current.CurrentPage.ShowPopup(settingPage);
         }
 
-        private async void LoadUsers()
-        {
-           
-        }
-
-        public ObservableCollection<UserModel> Users { get; set; } = new ObservableCollection<UserModel>();
+        public ObservableCollection<AccountDetailsDto> Accounts { get; set; } = new ObservableCollection<AccountDetailsDto>();
 
 
         
     }
-    public class UserModel
-    {
-        public int SN { get; set; }
-        public string? Id { get; set; }
-        public string? Name { get; set; }
-        public string? UserName { get; set; }
-        public string? EmailAddress { get; set; }
-        public string? MobileNumber { get; set; }
-        public string? Status { get; set; }
-        public string? Type { get; set; }
-    }
+   
 }
