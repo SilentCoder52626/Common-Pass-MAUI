@@ -10,7 +10,8 @@ public partial class SettingPage : Popup
 	{
 		InitializeComponent();
 		_vm = vm;
-		BindingContext = _vm;
+        _vm.ClosePopupAction = () => Close();
+        BindingContext = _vm;
         LoadSettings();
     }
     protected async void LoadSettings()

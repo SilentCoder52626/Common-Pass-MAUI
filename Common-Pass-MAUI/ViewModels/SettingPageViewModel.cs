@@ -3,6 +3,7 @@ using Common_Pass_MAUI.Pages;
 using Common_Pass_MAUI.Services;
 using CommunityToolkit.Maui.Alerts;
 using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System;
@@ -17,13 +18,12 @@ namespace Common_Pass_MAUI.ViewModels
     public partial class SettingPageViewModel : ObservableObject
     {
         ISettingService _settingService;
-        private readonly IDialogService _dialogService;
+        public Action ClosePopupAction { get; set; }
 
 
-        public SettingPageViewModel(ISettingService settingService, IDialogService dialogService)
+        public SettingPageViewModel(ISettingService settingService)
         {
             _settingService = settingService;
-            _dialogService = dialogService;
         }
 
         [ObservableProperty]
@@ -61,21 +61,18 @@ namespace Common_Pass_MAUI.ViewModels
                 new Models.SettingModel(){Key = SettingKey.EncryptionKey.ToString(),Value = EncryptionKey },
                 new Models.SettingModel(){Key = SettingKey.ExportPin.ToString(),Value = ExportPin },
                     });
-                string message = "Settings updated successfully!";
-                ToastDuration duration = ToastDuration.Short;
-                double fontSize = 14;
+                IsBusy = false;
 
-                var toast = Toast.Make(message, duration, fontSize);
-                await toast.Show();
+                await Shell.Current.DisplayAlert("Success!", "Settings updated successfully!", "Ok");
+                ClosePopupAction?.Invoke();
 
             }
             catch (Exception ex)
             {
-                await _dialogService.DisplayTextPromptAsync("Error!!", ex.Message);
-            }
-            finally
-            {
                 IsBusy = false;
+                await Shell.Current.DisplayAlert("Error!", $"Something Went Wrong: {ex.Message}", "Ok");
+
+
             }
 
 
