@@ -54,7 +54,9 @@ namespace Common_Pass_MAUI
             builder.Services.AddSingleton<RegisterPage>();
             builder.Services.AddSingleton<ProfilePage>();
             builder.Services.AddScoped<SettingPage>();
+            builder.Services.AddScoped<DetailsPage>();
             builder.Services.AddScoped<SettingPageViewModel>();
+            builder.Services.AddScoped<DetailsPageViewModel>();
 
 
 

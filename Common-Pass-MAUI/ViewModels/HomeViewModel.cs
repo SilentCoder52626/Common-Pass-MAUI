@@ -25,7 +25,7 @@ namespace Common_Pass_MAUI.ViewModels
         public async void LoadAccounts()
         {
             var Accs = await _accountDetailsService.GetAccountDetails();
-            foreach(var data in Accs.Details)
+            foreach (var data in Accs.Details)
             {
                 Accounts.Add(new AccountDetailsDto()
                 {
@@ -37,18 +37,18 @@ namespace Common_Pass_MAUI.ViewModels
             }
         }
         [RelayCommand]
-        public void GoToDetailsPageCommand(AccountDetailsDto dto)
+        public void GoToDetailsPage(AccountDetailsDto dto)
         {
-             var viewModel = Application.Current.Handler.MauiContext.Services.GetService<SettingPageViewModel>();
+            var viewModel = Application.Current.Handler.MauiContext.Services.GetService<DetailsPageViewModel>();
 
-        var settingPage = new SettingPage(viewModel);
-            Shell.Current.CurrentPage.ShowPopup(settingPage);
+            var detailsPage = new DetailsPage(viewModel);
+            Shell.Current.CurrentPage.ShowPopup(detailsPage);
         }
 
         public ObservableCollection<AccountDetailsDto> Accounts { get; set; } = new ObservableCollection<AccountDetailsDto>();
 
 
-        
+
     }
-   
+
 }

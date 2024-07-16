@@ -21,9 +21,7 @@
                                 HorizontalTextAlignment="Center"
                                 Text="No Account Details"
                                 TextColor="Gray"
-                                VerticalTextAlignment="Center">
-                                
-                            </Label>
+                                VerticalTextAlignment="Center" />
 
                         </VerticalStackLayout>
                     </CollectionView.EmptyView>
@@ -71,12 +69,12 @@
                                                 Color="Black" />
                                         </Image.Source>
                                     </Image>
-
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=GoToDetailsPageCommand}" CommandParameter="{Binding .}" />
+                                    </Grid.GestureRecognizers>
                                 </Grid>
 
-                                <Border.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=GoToDetailsPageCommand}" CommandParameter="{Binding .}" />
-                                </Border.GestureRecognizers>
+
                             </Border>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    x:Class="Common_Pass_MAUI.Pages.DetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:icons="clr-namespace:UraniumUI.Icons.MaterialIcons;assembly=UraniumUI.Icons.MaterialIcons"
+    xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+    xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:validation="clr-namespace:InputKit.Shared.Validations;assembly=InputKit.Maui"
+    xmlns:vm="clr-namespace:Common_Pass_MAUI.ViewModels"
+    x:DataType="vm:DetailsPageViewModel"
+    CanBeDismissedByTappingOutsideOfPopup="False"
+    HorizontalOptions="Center"
+    VerticalOptions="Center">
+
+    <Frame BackgroundColor="White" WidthRequest="500">
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!--  Header  -->
+            <Label
+                FontAttributes="Bold"
+                FontSize="25"
+                HorizontalOptions="Center"
+                LineHeight="1"
+                Text="Accounts" />
+
+            <!--  Separator  -->
+            <BoxView
+                BackgroundColor="Gray"
+                HeightRequest="1"
+                HorizontalOptions="FillAndExpand" />
+            <input:FormView Spacing="20" SubmitCommand="{Binding SaveAccountsCommand}">
+
+                <!--  Body  -->
+                <ScrollView Padding="20,30">
+                    <VerticalStackLayout Spacing="20">
+
+                        <material:TextField
+                            Title="Account"
+                            AllowClear="True"
+                            Icon="{FontImageSource FontFamily=MaterialRegular,
+                                                   Glyph={x:Static icons:MaterialRegular.Key}}"
+                            Text="{Binding Account}">
+                            <validation:RequiredValidation />
+                        </material:TextField>
+
+                        <material:TextField
+                            Title="Username"
+                            AllowClear="True"
+                            Icon="{FontImageSource FontFamily=MaterialRegular,
+                                                   Glyph={x:Static icons:MaterialRegular.Supervised_user_circle}}"
+                            Text="{Binding UserName}">
+                            <validation:RequiredValidation />
+                        </material:TextField>
+
+                        <material:TextField
+                            Title="Password"
+                            AllowClear="True"
+                            Icon="{FontImageSource FontFamily=MaterialRegular,
+                                                   Glyph={x:Static icons:MaterialRegular.Key}}"
+                            IsPassword="True"
+                            Text="{Binding Pass}">
+                            <validation:RequiredValidation />
+                        </material:TextField>
+
+
+                    </VerticalStackLayout>
+                </ScrollView>
+
+                <!--  Separator  -->
+                <BoxView
+                    BackgroundColor="Gray"
+                    HeightRequest="1"
+                    HorizontalOptions="FillAndExpand" />
+
+                <!--  Footer  -->
+                <Grid Padding="0" ColumnDefinitions="*,*">
+                    <Button
+                        Grid.Column="0"
+                        Margin="0,0,5,0"
+                        Padding="15,0"
+                        input:FormView.IsSubmitButton="True"
+                        BackgroundColor="{StaticResource Primary}"
+                        CornerRadius="12"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="Save" />
+
+                    <Button
+                        Grid.Column="1"
+                        Margin="5,0,0,0"
+                        Padding="15,0"
+                        input:FormView.IsSubmitButton="False"
+                        BackgroundColor="{StaticResource Secondary}"
+                        Clicked="Button_Clicked"
+                        CornerRadius="12"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Text="Close" />
+                </Grid>
+                <!--  Activity Indicator  -->
+                <ActivityIndicator
+                    HorizontalOptions="FillAndExpand"
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}"
+                    VerticalOptions="CenterAndExpand" />
+
+            </input:FormView>
+
+
+        </VerticalStackLayout>
+
+    </Frame>
+</toolkit:Popup>
