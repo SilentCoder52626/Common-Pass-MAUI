@@ -21,9 +21,13 @@ namespace Common_Pass_MAUI.ViewModels
             _accountDetailsService = accountDetailsService;
             LoadAccounts();
         }
+        [ObservableProperty]
+        private bool _isBusy;
         [RelayCommand]
         public async void LoadAccounts()
         {
+            IsBusy = true;
+            Accounts = new ObservableCollection<AccountDetailsDto>();
             var Accs = await _accountDetailsService.GetAccountDetails();
             foreach (var data in Accs.Details)
             {
@@ -35,14 +39,22 @@ namespace Common_Pass_MAUI.ViewModels
                     UserName = data.UserName,
                 });
             }
+            IsBusy = false;
         }
         [RelayCommand]
-        public void GoToDetailsPage(AccountDetailsDto dto)
+        public async void GoToDetailsPage(AccountDetailsDto dto)
         {
-            var viewModel = Application.Current.Handler.MauiContext.Services.GetService<DetailsPageViewModel>();
+            try
+            {
+                var viewModel = Application.Current.Handler.MauiContext.Services.GetService<DetailsPageViewModel>();
+                viewModel.Id = dto.Id;
+                var detailsPage = new DetailsPage(viewModel);
+                Shell.Current.CurrentPage.ShowPopup(detailsPage);
+            }catch(Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error!", $"Something Went Wrong: {ex.Message}", "Ok");
 
-            var detailsPage = new DetailsPage(viewModel);
-            Shell.Current.CurrentPage.ShowPopup(detailsPage);
+            }
         }
 
         public ObservableCollection<AccountDetailsDto> Accounts { get; set; } = new ObservableCollection<AccountDetailsDto>();

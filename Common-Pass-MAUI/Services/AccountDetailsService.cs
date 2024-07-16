@@ -1,18 +1,17 @@
 ﻿using Common_Pass_MAUI.Helpers;
 using Common_Pass_MAUI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Common_Pass_MAUI.Services
 {
     public interface IAccountDetailsService
     {
         Task<AccountDetailModel> GetAccountDetails();
+        Task AddOrUpdateAccounts(AccountDetailsDto model);
+        Task<AccountDetailsDto> GetDecryptedDetails(int id);
+
     }
     public class AccountDetailsService : IAccountDetailsService
     {
@@ -22,26 +21,53 @@ namespace Common_Pass_MAUI.Services
         {
             _client = factory.CreateClient("Pass_Client");
         }
+
+        public async Task AddOrUpdateAccounts(AccountDetailsDto model)
+        {
+            try
+            {
+                // Clear and set headers
+                _client.DefaultRequestHeaders.Clear();
+                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                // Get JWT token
+                var token = await TokenHelper.GetJWTTokenAsync();
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                // Serialize the model to JSON
+                var jsonContent = new StringContent(JsonSerializer.Serialize(model), Encoding.UTF8, "application/json");
+
+                var response = await _client.PostAsync("AccountDetails/AddOrUpdate", jsonContent);
+
+                response.EnsureSuccessStatusCode();
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var result = JsonSerializer.Deserialize<ResponseModel<AccountDetailsDto>>(responseContent);
+
+                if (result?.Data == null)
+                {
+                    throw new Exception("Failed to update account details.");
+                }
+            }
+            catch (HttpRequestException httpEx)
+            {
+                // Log HTTP-specific exceptions
+                throw new Exception("Error making HTTP request.", httpEx);
+            }
+            catch (JsonException jsonEx)
+            {
+                // Log JSON-specific exceptions
+                throw new Exception("Error parsing JSON response.", jsonEx);
+            }
+            catch (Exception ex)
+            {
+                // Log general exceptions
+                throw;
+            }
+        }
+
         public async Task<AccountDetailModel> GetAccountDetails()
         {
-
-            //var returnModel = new AccountDetailModel();
-
-            //returnModel.Details.Add(new AccountDetailsDto()
-            //{
-            //    Account = "Acc",
-            //    Id = 1,
-            //    Pass = "qwertyu",
-            //    UserName = "user"
-            //});
-            //returnModel.Details.Add(new AccountDetailsDto()
-            //{
-            //    Account = "My Acc",
-            //    Id = 2,
-            //    Pass = "IamKM",
-            //    UserName = "yo user"
-            //});
-            //return returnModel;
 
 
             _client.DefaultRequestHeaders.Accept.Clear();
@@ -55,16 +81,54 @@ namespace Common_Pass_MAUI.Services
             var returnModel = new AccountDetailModel();
             if (response.IsSuccessStatusCode)
             {
-                var result = JsonSerializer.Deserialize<ResponseModel>(await response.Content.ReadAsStringAsync());
-                if (result.Data is JsonElement dataElement && dataElement.ValueKind == JsonValueKind.Object)
+                var result = JsonSerializer.Deserialize<ResponseModel<AccountDetailModel>>(await response.Content.ReadAsStringAsync());
+                if (result?.Data != null)
                 {
-                    var dataSeralized = JsonSerializer.Serialize(result.Data);
-                    if (!String.IsNullOrEmpty(dataSeralized))
-                        returnModel = JsonSerializer.Deserialize<AccountDetailModel>(dataSeralized) ?? new AccountDetailModel();
-
+                    returnModel = result.Data;
                 }
             }
             return returnModel;
+        }
+
+        public async Task<AccountDetailsDto> GetDecryptedDetails(int id)
+        {
+            try
+            {
+                _client.DefaultRequestHeaders.Clear();
+                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var token = await TokenHelper.GetJWTTokenAsync();
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+
+                var response = await _client.GetAsync($"AccountDetails/DecryptedDetails/{id}");
+
+                response.EnsureSuccessStatusCode();
+
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var result = JsonSerializer.Deserialize<ResponseModel<AccountDetailsDto>>(responseContent);
+
+                if (result?.Data != null)
+                {
+                    return result.Data;
+                }
+                else
+                {
+                    throw new Exception("Failed to retrieve account details.");
+                }
+            }
+            catch (HttpRequestException httpEx)
+            {
+                throw new Exception("Error making HTTP request.", httpEx);
+            }
+            catch (JsonException jsonEx)
+            {
+                throw new Exception("Error parsing JSON response.", jsonEx);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

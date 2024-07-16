@@ -17,4 +17,12 @@ namespace Common_Pass_MAUI.Models
         public string? Status { get; set; }
         public string? Type { get; set; }
     }
+    public class RegisterUserResponseDto
+    {
+        public string EmailConfirmationLink { get; set; }
+        public string UserId { get; set; }
+        public string EmailAddress { get; set; }
+        public string Name { get; set; }
+        public string UserName { get; set; }
+    }
 }

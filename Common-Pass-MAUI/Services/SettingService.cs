@@ -36,27 +36,15 @@ namespace Common_Pass_MAUI.Services
             HttpResponseMessage response = await _client.GetAsync("setting/");
             if (response.IsSuccessStatusCode)
             {
-                var result = JsonSerializer.Deserialize<ResponseModel>(await response.Content.ReadAsStringAsync());
-                if (result.Data is JsonElement dataElement && dataElement.ValueKind == JsonValueKind.Object)
+                var result = JsonSerializer.Deserialize<ResponseModel<AppSettingModel>>(await response.Content.ReadAsStringAsync());
+
+                if (result?.Data != null)
                 {
-                    var appSettingsArray = dataElement.GetProperty("AppSettings").EnumerateArray();
+                    return result.Data.AppSettings;
 
-                    // Create a list to hold AppSettingDto objects
-                    var appSettings = new List<SettingModel>();
-
-                    // Iterate through the array and deserialize each object into AppSettingDto
-                    foreach (var setting in appSettingsArray)
-                    {
-                        var appSetting = new SettingModel
-                        {
-                            Key = setting.GetProperty("Key").GetString(),
-                            Value = setting.GetProperty("Value").GetString()
-                        };
-
-                        appSettings.Add(appSetting);
-                    }
-                    return appSettings;
                 }
+
+
             }
             return new List<SettingModel>();
         }
@@ -75,8 +63,7 @@ namespace Common_Pass_MAUI.Services
             HttpResponseMessage response = await _client.PostAsync("setting/update", jsonContent);
             if (response.IsSuccessStatusCode)
             {
-                var result = JsonSerializer.Deserialize<ResponseModel>(await response.Content.ReadAsStringAsync());
-
+                return;
             }
             else
             {

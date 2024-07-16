@@ -11,4 +11,8 @@ namespace Common_Pass_MAUI.Models
         public string Key { get; set; }
         public string Value { get; set; }
     }
+    public class AppSettingModel
+    {
+        public List<SettingModel> AppSettings { get; set; } = new List<SettingModel>();
+    }
 }

@@ -62,6 +62,9 @@
                             IsPassword="True"
                             Text="{Binding Pass}">
                             <validation:RequiredValidation />
+                            <material:TextField.Attachments>
+                                <material:TextFieldPasswordShowHideAttachment />
+                            </material:TextField.Attachments>
                         </material:TextField>
 
 

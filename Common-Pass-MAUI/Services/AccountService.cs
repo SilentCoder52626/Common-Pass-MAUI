@@ -82,7 +82,7 @@ namespace Common_Pass_MAUI.Services
             HttpResponseMessage response = await _client.PostAsync("account/register", jsonContent);
             if (response.IsSuccessStatusCode)
             {
-                var result = JsonSerializer.Deserialize<ResponseModel>(await response.Content.ReadAsStringAsync());
+               // var result = JsonSerializer.Deserialize<ResponseModel<RegisterUserResponseDto>>(await response.Content.ReadAsStringAsync());
 
                 return true;
             }

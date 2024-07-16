@@ -1,11 +1,20 @@
 ﻿
+using Common_Pass_MAUI.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace Common_Pass_MAUI.ViewModels
 {
+
     public partial class DetailsPageViewModel : ObservableObject
     {
+        private readonly IAccountDetailsService _accountService;
+
+        public DetailsPageViewModel(IAccountDetailsService accountService)
+        {
+            _accountService = accountService;
+        }
+
         public Action ClosePopupAction { get; set; }
 
 
@@ -17,14 +26,18 @@ namespace Common_Pass_MAUI.ViewModels
         string _pass;
         [ObservableProperty]
         bool _isBusy;
+        [ObservableProperty]
+        int _id;
 
         public async Task LoadSettingData()
         {
 
             IsBusy = true;
-            Account = "TMS 49";
-            UserName = "20211013653";
-            Pass = "Kaman";
+            var data = await _accountService.GetDecryptedDetails(Id);
+            Account = data.Account;
+            UserName = data.UserName;
+            Pass = data.Pass;
+            Id = data.Id;
             IsBusy = false;
         }
         [RelayCommand]
@@ -33,9 +46,15 @@ namespace Common_Pass_MAUI.ViewModels
             try
             {
                 IsBusy = true;
-               
 
-                await Shell.Current.DisplayAlert("Success!", "Settings updated successfully!", "Ok");
+                await _accountService.AddOrUpdateAccounts(new Models.AccountDetailsDto()
+                {
+                    Account = Account,
+                    Id = Id,
+                    Pass = Pass,
+                    UserName = UserName,
+                });
+                await Shell.Current.DisplayAlert("Success!", "Accounts Updated Successfully!", "Ok");
                 ClosePopupAction?.Invoke();
 
             }
@@ -44,7 +63,8 @@ namespace Common_Pass_MAUI.ViewModels
                 await Shell.Current.DisplayAlert("Error!", $"Something Went Wrong: {ex.Message}", "Ok");
 
 
-            }finally
+            }
+            finally
             {
                 IsBusy = false;
             }

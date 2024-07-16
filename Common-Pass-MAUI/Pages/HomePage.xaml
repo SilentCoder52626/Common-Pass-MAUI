@@ -9,6 +9,9 @@
     xmlns:vm="clr-namespace:Common_Pass_MAUI.ViewModels"
     Title="Home"
     x:DataType="vm:HomeViewModel">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="REFRESH" Command="{Binding LoadAccountsCommand}"/>
+    </ContentPage.ToolbarItems>
     <VerticalStackLayout Padding="20" Spacing="20">
         <ScrollView Margin="10">
             <VerticalStackLayout>
@@ -21,7 +24,16 @@
                                 HorizontalTextAlignment="Center"
                                 Text="No Account Details"
                                 TextColor="Gray"
-                                VerticalTextAlignment="Center" />
+                                VerticalTextAlignment="Center">
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding IsBusy}"
+                                        TargetType="Label"
+                                        Value="True">
+                                        <Setter Property="Text" Value="Searching..." />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
 
                         </VerticalStackLayout>
                     </CollectionView.EmptyView>
