@@ -12,6 +12,11 @@ public partial class HomePage : ContentPage
         _vm = vm;
         BindingContext = _vm;
     }
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await _vm.LoadAccounts();
+    }
 
-    
+
 }

@@ -19,15 +19,16 @@ namespace Common_Pass_MAUI.ViewModels
         public HomeViewModel(IAccountDetailsService accountDetailsService)
         {
             _accountDetailsService = accountDetailsService;
-            LoadAccounts();
         }
         [ObservableProperty]
         private bool _isBusy;
+
         [RelayCommand]
-        public async void LoadAccounts()
+        public async Task LoadAccounts()
         {
             IsBusy = true;
-            Accounts = new ObservableCollection<AccountDetailsDto>();
+            Accounts.Clear();
+
             var Accs = await _accountDetailsService.GetAccountDetails();
             foreach (var data in Accs.Details)
             {
@@ -57,7 +58,7 @@ namespace Common_Pass_MAUI.ViewModels
             }
         }
 
-        public ObservableCollection<AccountDetailsDto> Accounts { get; set; } = new ObservableCollection<AccountDetailsDto>();
+        public ObservableCollection<AccountDetailsDto> Accounts { get; set; } = [];
 
 
 
