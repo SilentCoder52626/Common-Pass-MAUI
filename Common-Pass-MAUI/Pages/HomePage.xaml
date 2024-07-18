@@ -10,9 +10,9 @@
     Title="Home"
     x:DataType="vm:HomeViewModel">
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="REFRESH" Command="{Binding LoadAccountsCommand}"/>
+        <ToolbarItem Command="{Binding LoadAccountsCommand}" Text="REFRESH" />
     </ContentPage.ToolbarItems>
-    <VerticalStackLayout Padding="20" Spacing="20">
+    <Grid Padding="20">
         <ScrollView Margin="10">
             <VerticalStackLayout>
                 <CollectionView ItemsSource="{Binding Accounts}">
@@ -47,7 +47,7 @@
                             <Border
                                 Margin="5"
                                 Padding="20,10"
-                                BackgroundColor="SandyBrown"
+                                BackgroundColor="{x:StaticResource Primary}"
                                 StrokeShape="RoundRectangle 20"
                                 StrokeThickness="1">
 
@@ -95,6 +95,27 @@
             </VerticalStackLayout>
         </ScrollView>
 
-
-    </VerticalStackLayout>
+        <Border
+            Padding="20"
+            BackgroundColor="HotPink"
+            HorizontalOptions="End"
+            StrokeShape="RoundRectangle 50"
+            StrokeThickness="1"
+            VerticalOptions="End">
+            <Image
+                HeightRequest="20"
+                HorizontalOptions="End"
+                WidthRequest="20">
+                <Image.Source>
+                    <FontImageSource
+                        FontFamily="MaterialRegular"
+                        Glyph="{x:Static icons:MaterialRegular.Add}"
+                        Color="Black" />
+                </Image.Source>
+            </Image>
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=AddAccountsCommand}" />
+            </Border.GestureRecognizers>
+        </Border>
+    </Grid>
 </ContentPage>

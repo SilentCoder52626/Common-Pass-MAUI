@@ -33,12 +33,28 @@ namespace Common_Pass_MAUI.ViewModels
         {
 
             IsBusy = true;
-            var data = await _accountService.GetDecryptedDetails(Id);
-            Account = data.Account;
-            UserName = data.UserName;
-            Pass = data.Pass;
-            Id = data.Id;
+            if (Id > 0)
+            {
+                var data = await _accountService.GetDecryptedDetails(Id);
+                Account = data.Account;
+                UserName = data.UserName;
+                Pass = data.Pass;
+                Id = data.Id;
+            }
+            else
+            {
+
+            Pass = String.Empty;
+            }
             IsBusy = false;
+        }
+        [RelayCommand]
+        public void CloseDetails()
+        {
+            Account = String.Empty;
+            UserName = String.Empty;
+            Pass = String.Empty;
+            ClosePopupAction?.Invoke();
         }
         [RelayCommand]
         public async Task SaveAccounts()
@@ -55,6 +71,9 @@ namespace Common_Pass_MAUI.ViewModels
                     UserName = UserName,
                 });
                 await Shell.Current.DisplayAlert("Success!", "Accounts Updated Successfully!", "Ok");
+                Account = String.Empty; 
+                UserName = String.Empty; 
+                Pass = String.Empty;
                 ClosePopupAction?.Invoke();
 
             }

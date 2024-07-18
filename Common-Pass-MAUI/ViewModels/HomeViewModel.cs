@@ -57,6 +57,22 @@ namespace Common_Pass_MAUI.ViewModels
 
             }
         }
+        
+        [RelayCommand]
+        public async void AddAccounts()
+        {
+            try
+            {
+                var viewModel = Application.Current.Handler.MauiContext.Services.GetService<DetailsPageViewModel>();
+                viewModel.Id = 0;
+                var detailsPage = new DetailsPage(viewModel);
+                Shell.Current.CurrentPage.ShowPopup(detailsPage);
+            }catch(Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error!", $"Something Went Wrong: {ex.Message}", "Ok");
+
+            }
+        }
 
         public ObservableCollection<AccountDetailsDto> Accounts { get; set; } = [];
 
