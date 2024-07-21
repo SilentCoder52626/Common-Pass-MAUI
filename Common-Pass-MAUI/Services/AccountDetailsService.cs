@@ -11,6 +11,7 @@ namespace Common_Pass_MAUI.Services
         Task<AccountDetailModel> GetAccountDetails();
         Task AddOrUpdateAccounts(AccountDetailsDto model);
         Task<AccountDetailsDto> GetDecryptedDetails(int id);
+        Task Delete(int id);
 
     }
     public class AccountDetailsService : IAccountDetailsService
@@ -62,6 +63,38 @@ namespace Common_Pass_MAUI.Services
             catch (Exception ex)
             {
                 // Log general exceptions
+                throw;
+            }
+        }
+
+        public async Task Delete(int id)
+        {
+            try
+            {
+                _client.DefaultRequestHeaders.Clear();
+                _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                var token = await TokenHelper.GetJWTTokenAsync();
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+
+                var response = await _client.GetAsync($"AccountDetails/RemoveAccount/{id}");
+
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
+                    var result = JsonSerializer.Deserialize<ResponseModel>(responseContent);
+                    throw new Exception(result.Message);
+                }
+                
+            }
+            catch (JsonException jsonEx)
+            {
+                throw new Exception("Error parsing JSON response.", jsonEx);
+            }
+            catch (Exception ex)
+            {
                 throw;
             }
         }

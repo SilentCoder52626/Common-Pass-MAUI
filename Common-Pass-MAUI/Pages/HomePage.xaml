@@ -44,50 +44,70 @@
 
                     <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="models:AccountDetailsDto">
-                            <Border
-                                Margin="5"
-                                Padding="20,10"
-                                BackgroundColor="{x:StaticResource Primary}"
-                                StrokeShape="RoundRectangle 20"
-                                StrokeThickness="1">
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItems SwipeBehaviorOnInvoked="Close">
+                                        <SwipeItemView>
+                                            <Button
+                                                Margin="5,0,0,0"
+                                                Padding="15,0"
+                                                BackgroundColor="Red"
+                                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=DeleteCommand}"
+                                                CommandParameter="{Binding Id}"
+                                                CornerRadius="12"
+                                                FontAttributes="Bold"
+                                                FontSize="18"
+                                                Text="Delete" />
+                                        </SwipeItemView>
 
-                                <Grid ColumnDefinitions="*,*">
-                                    <VerticalStackLayout
-                                        Grid.Column="0"
-                                        Padding="20,10"
-                                        Spacing="15"
-                                        VerticalOptions="Center">
-                                        <Label
-                                            FontAttributes="Bold"
-                                            FontSize="20"
-                                            Text="{Binding Account}"
-                                            TextColor="Black" />
-                                        <Label
-                                            FontSize="16"
-                                            Text="{Binding UserName}"
-                                            TextColor="Black" />
+                                    </SwipeItems>
+                                </SwipeView.RightItems>
+                                <Border
+                                    Margin="5"
+                                    Padding="20,10"
+                                    BackgroundColor="{x:StaticResource Primary}"
+                                    StrokeShape="RoundRectangle 20"
+                                    StrokeThickness="1">
+
+                                    <Grid ColumnDefinitions="*,*">
+                                        <VerticalStackLayout
+                                            Grid.Column="0"
+                                            Padding="20,10"
+                                            Spacing="15"
+                                            VerticalOptions="Center">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="20"
+                                                Text="{Binding Account}"
+                                                TextColor="Black" />
+                                            <Label
+                                                FontSize="16"
+                                                Text="{Binding UserName}"
+                                                TextColor="Black" />
 
 
-                                    </VerticalStackLayout>
-                                    <Image
-                                        Grid.Column="1"
-                                        HeightRequest="20"
-                                        HorizontalOptions="End"
-                                        WidthRequest="20">
-                                        <Image.Source>
-                                            <FontImageSource
-                                                FontFamily="MaterialRegular"
-                                                Glyph="{x:Static icons:MaterialRegular.Keyboard_arrow_right}"
-                                                Color="Black" />
-                                        </Image.Source>
-                                    </Image>
-                                    <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=GoToDetailsPageCommand}" CommandParameter="{Binding .}" />
-                                    </Grid.GestureRecognizers>
-                                </Grid>
+                                        </VerticalStackLayout>
+                                        <Image
+                                            Grid.Column="1"
+                                            HeightRequest="20"
+                                            HorizontalOptions="End"
+                                            WidthRequest="20">
+                                            <Image.Source>
+                                                <FontImageSource
+                                                    FontFamily="MaterialRegular"
+                                                    Glyph="{x:Static icons:MaterialRegular.Keyboard_arrow_right}"
+                                                    Color="Black" />
+                                            </Image.Source>
+                                        </Image>
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:HomeViewModel}}, Path=GoToDetailsPageCommand}" CommandParameter="{Binding .}" />
+                                        </Grid.GestureRecognizers>
+                                    </Grid>
 
 
-                            </Border>
+                                </Border>
+
+                            </SwipeView>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
 

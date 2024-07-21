@@ -51,13 +51,31 @@ namespace Common_Pass_MAUI.ViewModels
                 viewModel.Id = dto.Id;
                 var detailsPage = new DetailsPage(viewModel);
                 Shell.Current.CurrentPage.ShowPopup(detailsPage);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 await Shell.Current.DisplayAlert("Error!", $"Something Went Wrong: {ex.Message}", "Ok");
 
             }
         }
-        
+        [RelayCommand]
+        public async Task Delete(int id)
+        {
+            try
+            {
+
+                await _accountDetailsService.Delete(id);
+                await Shell.Current.DisplayAlert("Success!", "Account deleted succefully.", "Ok");
+
+                Accounts.Remove(Accounts.FirstOrDefault(c=>c.Id == id));
+
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error!", $"Something Went Wrong: {ex.Message}", "Ok");
+
+            }
+        }
         [RelayCommand]
         public async void AddAccounts()
         {
@@ -67,7 +85,8 @@ namespace Common_Pass_MAUI.ViewModels
                 viewModel.Id = 0;
                 var detailsPage = new DetailsPage(viewModel);
                 Shell.Current.CurrentPage.ShowPopup(detailsPage);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 await Shell.Current.DisplayAlert("Error!", $"Something Went Wrong: {ex.Message}", "Ok");
 
